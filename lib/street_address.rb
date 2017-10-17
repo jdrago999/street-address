@@ -527,7 +527,9 @@ module StreetAddress
         :number_regexp,
         :fraction_regexp,
         :state_regexp,
+        :state_name_regexp,
         :city_and_state_regexp,
+        :city_and_state_name_regexp,
         :direct_regexp,
         :zip_regexp,
         :corner_regexp,
@@ -555,6 +557,10 @@ module StreetAddress
     self.fraction_regexp = /\d+\/\d+/
     self.state_regexp = Regexp.new(
       '\b' + STATE_CODES.flatten.map{ |code| Regexp.quote(code) }.join("|") + '\b',
+      Regexp::IGNORECASE
+    )
+    self.state_name_regexp = Regexp.new(
+      '\b' + STATE_CODES.flatten.map{ |code, name| Regexp.quote(name) }.join("|") + '\b',
       Regexp::IGNORECASE
     )
     self.direct_regexp = Regexp.new(
@@ -653,6 +659,13 @@ module StreetAddress
       (?:
           (?<city> [^\d,]+?)\W+
           (?<state> #{state_regexp})
+      )
+    /ix;
+
+    self.city_and_state_name_regexp = /
+      (?:
+          (?<city> [^\d,]+?)\W+
+          (?<state> (?:#{state_name_regexp}|#{state_regexp}))
       )
     /ix;
 
