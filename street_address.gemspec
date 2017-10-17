@@ -5,7 +5,7 @@ $LOAD_PATH.unshift 'lib'
 Gem::Specification.new do |s|
   s.name = "StreetAddress"
   s.licenses = ['MIT']
-  s.version = StreetAddress::US::VERSION
+  s.version = '2.0.0
   s.date = Time.now.strftime('%Y-%m-%d')
   s.summary = "Parse Addresses into substituent parts. This gem includes US only."
   s.authors = ["Derrek Long"]
